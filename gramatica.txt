@@ -1,0 +1,215 @@
+<programa> 
+  | <declaracao> <resto_programa> 
+  | <funcao> <resto_programa>
+
+<resto_programa> 
+  | <declaracao> <resto_programa> 
+  | <funcao> <resto_programa> 
+  | ε
+
+<declaracoes>
+  | <declaracao>
+  | <declaracao> ',' <declaracoes>
+
+<declaracao> 
+  | <tipo> <lista_identificadores> ';'
+
+<lista_identificadores> 
+  | <identificador> 
+  | <identificador> <modificadores>
+  | <identificador> ',' <lista_identificadores>
+
+<tipo> 
+  | int 
+  | long int 
+  | long long int 
+  | float 
+  | char 
+  | double
+
+<modificadores> 
+  | <modificador> <resto_modificadores> 
+  | ε
+
+<resto_modificadores> 
+  | <modificador> <resto_modificadores> 
+  | ε
+
+<modificador> 
+  | unsigned 
+  | '*' 
+  | '[' <integer_literal> ']'
+
+<funcao> 
+  | <tipo> <identificador> '(' <lista_parametros> ')' <bloco_chave>
+
+<lista_parametros> 
+  | <parametro> <resto_lista_parametros>
+
+<resto_lista_parametros> 
+  | ',' <parametro> <resto_lista_parametros> 
+  | ε
+
+<parametro> 
+  | <tipo> <identificador>
+
+<bloco_chave> 
+  | '{' <lista_comandos> '}'
+
+<lista_comandos> 
+  | <comando> <resto_lista_comandos> 
+  | ε
+
+<resto_lista_comandos> 
+  | <comando> <resto_lista_comandos> 
+  | ε
+
+<comando> 
+  | <expressao> ';' 
+  | <declaracao> 
+  | <comando_controle> 
+  | <bloco_chave>
+
+<comando_controle> 
+  | <while_loop> 
+  | <do_while_loop> 
+  | <for_loop> 
+  | <if>
+
+
+<controle_laco>
+  |  break ';'
+  |  continue ';'
+
+<while_loop> 
+  | while '(' <expressao> ')' <comando>
+
+<do_while_loop> 
+  | do <comando> while '(' <expressao> ')' ';'
+
+<for_loop> 
+  | for '(' <expressao> ';' <expressao> ';' <expressao> ')' <comando>
+
+<if> 
+  | if '(' <expressao> ')' <comando> <else>
+
+<else> 
+  | else <comando> 
+  | ε
+
+<expressao> 
+  | <expressao_assign> <resto_expressao>
+
+<resto_expressao> 
+  | ',' <expressao_assign> <resto_expressao> 
+  | ε
+
+<expressao_assign> 
+  | <expressao_logica> <operador_atrib> <expressao_assign> 
+  | <expressao_logica>
+
+<expressao_logica> 
+  | <expressao_igualdade> <resto_expressao_logica>
+
+<resto_expressao_logica> 
+  | <logical_operator> <expressao_igualdade> <resto_expressao_logica> 
+  | ε
+
+<expressao_igualdade> 
+  | <expressao_relacional> <resto_expressao_igualdade>
+
+<resto_expressao_igualdade> 
+  | <equality_operator> <expressao_relacional> <resto_expressao_igualdade> 
+  | ε
+
+<expressao_relacional> 
+  | <expressao_soma> <resto_expressao_relacional>
+
+<resto_expressao_relacional> 
+  | <relational_operator> <expressao_soma> <resto_expressao_relacional> 
+  | ε
+
+<expressao_soma> 
+  | <expressao_mult> <resto_expressao_mult>
+
+<resto_expressao_mult> 
+  | <operador_soma> <expressao_mult> <resto_expressao_mult> 
+  | ε
+
+<expressao_mult> 
+  | <expressao_unaria> <resto_expressao_mult>
+
+<resto_expressao_mult> 
+  | <operador_mult> <expressao_unaria> <resto_expressao_mult> 
+  | ε
+
+<expressao_unaria> 
+  | <expressao_primaria> ('++' | '--' | ε)
+  | '-' <expressao_primaria> 
+  | <operador_unario> <expressao_unaria>
+
+<expressao_primaria> 
+  | <identificador> 
+  | <constante> 
+  | '(' <expressao> ')' 
+  | <chamada_funcao>
+
+<constante> 
+  | <integer_literal> 
+  | <float_literal> 
+  | <char_literal>
+
+<chamada_funcao> 
+  | <identificador> '(' <argumentos> ')'
+
+<argumentos> 
+  | <expressao> <resto_argumentos>
+
+<resto_argumentos> 
+  | ',' <expressao> <resto_argumentos> 
+  | ε
+
+<identificador> 
+  | TKId
+
+<operador_atrib> 
+  | = 
+  | += 
+  | -= 
+  | *= 
+  | /= 
+  | %= 
+  | >>= 
+  | <<=
+
+<operador_logico> 
+  | && 
+  | ||
+  | !
+
+<operador_igualdade> 
+  | == 
+  | !=
+
+<operador_relacional> 
+  | > 
+  | < 
+  | >= 
+  | <=
+
+<operador_soma> 
+  | + 
+  | -
+
+<operador_mult> 
+  | * 
+  | / 
+  | %
+
+<operador_unario> 
+  | & 
+  | |
+  | ^ 
+  | ~ 
+  | << 
+  | >>
